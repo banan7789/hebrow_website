@@ -1,0 +1,456 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מבחן דקדוק עברית</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial Hebrew', Arial, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: #f5f5f5;
+            font-size: 16px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                max-width: 800px;
+                padding: 20px;
+            }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .answer-input {
+                width: 200px;
+            }
+        }
+
+        .button {
+            width: 100%;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 1rem;
+            touch-action: manipulation;
+        }
+
+        @media (min-width: 768px) {
+            .button {
+                width: auto;
+                padding: 8px 16px;
+                margin: 5px;
+            }
+        }
+
+        .check-button {
+            background-color: #4CAF50;
+        }
+
+        .new-test-button {
+            background-color: #2196F3;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        @media (min-width: 768px) {
+            .controls {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .feedback {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+
+        .score-display {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>מבחן דקדוק עברית - שורשים ומשקלים</h1>
+    
+    <div class="controls">
+        <button onclick="generateNewTest()" class="button new-test-button">צור מבחן חדש</button>
+        <select id="questionCount" class="answer-input">
+            <option value="5">5 שאלות</option>
+            <option value="10" selected>10 שאלות</option>
+            <option value="15">15 שאלות</option>
+            <option value="20">20 שאלות</option>
+        </select>
+    </div>
+
+    <div id="scoreDisplay" class="score-display">ציון כולל: --</div>
+    
+    <div class="section">
+        <h2>חלק א׳: זיהוי שורשים וגזרות</h2>
+        <div id="rootQuestions"></div>
+    </div>
+
+    <div class="section">
+        <h2>חלק ב׳: משקלים</h2>
+        <div id="patternQuestions"></div>
+    </div>
+
+    <button onclick="checkAllAnswers()" class="button check-button">בדוק את כל התשובות</button>
+
+    <script>
+        const questionBank = {
+            roots: [
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתייאשים'?",
+                    answer: "יאש",
+                    explanation: "שורש מגזרת נחי פ\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מסתופפים'?",
+                    answer: "ספף",
+                    explanation: "שורש מגזרת הכפולים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתנוססים'?",
+                    answer: "נוס",
+                    explanation: "שורש מגזרת נחי ע\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתעוררים'?",
+                    answer: "עור",
+                    explanation: "שורש מגזרת נחי ע\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'משתוקקים'?",
+                    answer: "שוק",
+                    explanation: "שורש מגזרת נחי ע\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתגוררים'?",
+                    answer: "גור",
+                    explanation: "שורש מגזרת נחי ע\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתפוצצים'?",
+                    answer: "פצץ",
+                    explanation: "שורש מגזרת הכפולים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתנדנדים'?",
+                    answer: "נדנד",
+                    explanation: "שורש מרובע"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתקדמים'?",
+                    answer: "קדם",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מסתכלים'?",
+                    answer: "סכל",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתייבשים'?",
+                    answer: "יבש",
+                    explanation: "שורש מגזרת נחי פ\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתבוננים'?",
+                    answer: "בין",
+                    explanation: "שורש מגזרת נחי ע\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מציעים'?",
+                    answer: "יצע",
+                    explanation: "שורש מגזרת נחי פ\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתרוממים'?",
+                    answer: "רום",
+                    explanation: "שורש מגזרת נחי ע\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'נכנסים'?",
+                    answer: "כנס",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מובילים'?",
+                    answer: "יבל",
+                    explanation: "שורש מגזרת נחי פ\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'משתתקים'?",
+                    answer: "שתק",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'נוטים'?",
+                    answer: "נטה",
+                    explanation: "שורש מגזרת נחי ל\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתחילים'?",
+                    answer: "חיל",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מסיימים'?",
+                    answer: "סימ",
+                    explanation: "שורש מגזרת נחי ע\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתפללים'?",
+                    answer: "פלל",
+                    explanation: "שורש מגזרת הכפולים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מודיעים'?",
+                    answer: "ידע",
+                    explanation: "שורש מגזרת נחי פ\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מוצאים'?",
+                    answer: "יצא",
+                    explanation: "שורש מגזרת נחי פ\"י ול\"א"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'משתדלים'?",
+                    answer: "שדל",
+                    explanation: "שורש מגזרת השלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתווכחים'?",
+                    answer: "וכח",
+                    explanation: "שורש מגזרת נחי פ\"ו"
+                }
+            ],
+            patterns: [
+                {
+                    text: "מהו המשקל של המילה 'מַחְשֵׁב'?",
+                    answer: "מקטל",
+                    explanation: "משקל מקטל המציין כלים ומכשירים"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מַדְרִיךְ'?",
+                    answer: "מקטיל",
+                    explanation: "משקל מקטיל המציין בעלי מקצוע"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מִכְתָּב'?",
+                    answer: "מקטל",
+                    explanation: "משקל מקטל"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מַצְלֵמָה'?",
+                    answer: "מקטלה",
+                    explanation: "משקל מקטלה המציין מכשירים"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מִשְׁקֶפֶת'?",
+                    answer: "מקטלת",
+                    explanation: "משקל מקטלת המציין כלים"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מַקְהֵלָה'?",
+                    answer: "מקטלה",
+                    explanation: "משקל מקטלה"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מִגְדָּל'?",
+                    answer: "מקטל",
+                    explanation: "משקל מקטל המציין מקומות"
+                },
+                {
+                    text: "מהו המשקל של המילה 'מַפְתֵחַ'?",
+                    answer: "מקטל",
+                    explanation: "משקל מקטל המציין כלים"
+                }
+            ]
+        };
+
+        let currentQuestions = {
+            roots: [],
+            patterns: []
+        };
+
+        // [Previous JavaScript functions remain the same: shuffleArray, getRandomQuestions, createQuestion, etc.]
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function getRandomQuestions(type, count) {
+            const shuffled = shuffleArray([...questionBank[type]]);
+            return shuffled.slice(0, count);
+        }
+
+        function createQuestion(question, index, type) {
+            return `
+                <div class="question">
+                    <div>${index + 1}. ${question.text}</div>
+                    <input type="text" class="answer-input" id="${type}-${index}">
+                    <button class="button check-button" onclick="checkSingleAnswer('${type}', ${index})">בדוק תשובה</button>
+                    <div class="feedback" id="feedback-${type}-${index}"></div>
+                </div>
+            `;
+        }
+
+        
+        function generateNewTest() {
+            const questionCount = parseInt(document.getElementById('questionCount').value);
+            const rootCount = Math.floor(questionCount * 0.7); // 70% root questions
+            const patternCount = questionCount - rootCount;
+
+            currentQuestions.roots = getRandomQuestions('roots', rootCount);
+            currentQuestions.patterns = getRandomQuestions('patterns', patternCount);
+
+            const rootsContainer = document.getElementById('rootQuestions');
+            const patternsContainer = document.getElementById('patternQuestions');
+
+            rootsContainer.innerHTML = '';
+            patternsContainer.innerHTML = '';
+
+            currentQuestions.roots.forEach((q, i) => {
+                rootsContainer.innerHTML += createQuestion(q, i, 'roots');
+            });
+
+            currentQuestions.patterns.forEach((q, i) => {
+                patternsContainer.innerHTML += createQuestion(q, i, 'patterns');
+            });
+
+            // Reset score display
+            document.getElementById('scoreDisplay').textContent = 'ציון כולל: --';
+            
+            // Clear all feedback
+            document.querySelectorAll('.feedback').forEach(el => {
+                el.style.display = 'none';
+            });
+        }
+
+        function checkSingleAnswer(type, index) {
+            const input = document.getElementById(`${type}-${index}`);
+            const feedback = document.getElementById(`feedback-${type}-${index}`);
+            const question = currentQuestions[type][index];
+            
+            const userAnswer = input.value.trim();
+            const isCorrect = userAnswer.toLowerCase() === question.answer.toLowerCase();
+            
+            feedback.innerHTML = isCorrect ? 
+                `נכון! ${question.explanation}` :
+                `לא נכון. התשובה הנכונה היא: ${question.answer}. ${question.explanation}`;
+            
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedback.style.display = 'block';
+            
+            updateScore();
+        }
+
+        function checkAllAnswers() {
+            ['roots', 'patterns'].forEach(type => {
+                currentQuestions[type].forEach((_, index) => {
+                    checkSingleAnswer(type, index);
+                });
+            });
+        }
+
+        function updateScore() {
+            let correct = 0;
+            let total = 0;
+            
+            ['roots', 'patterns'].forEach(type => {
+                currentQuestions[type].forEach((q, i) => {
+                    const input = document.getElementById(`${type}-${i}`);
+                    if (input.value.trim()) {
+                        total++;
+                        if (input.value.trim().toLowerCase() === q.answer.toLowerCase()) {
+                            correct++;
+                        }
+                    }
+                });
+            });
+
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            if (total > 0) {
+                const percentage = Math.round((correct / total) * 100);
+                scoreDisplay.textContent = `ציון כולל: ${percentage}% (${correct} מתוך ${total} תשובות נכונות)`;
+            }
+        }
+
+        // Generate initial test when page loads
+        document.addEventListener('DOMContentLoaded', generateNewTest);
+    </script>
+</body>
+</html>
