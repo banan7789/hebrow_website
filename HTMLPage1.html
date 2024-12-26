@@ -62,16 +62,38 @@
         }
 
         .button {
-            width: 100%;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px 0;
-            font-size: 1rem;
-            touch-action: manipulation;
-        }
+        width: 100%;
+        color: white;
+        background: linear-gradient(90deg, #A8E063, #56AB2F);
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin: 5px 0;
+        font-size: 1rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+        touch-action: manipulation;
+    }
+
+    .button:hover {
+        background: linear-gradient(90deg, #50C878, #2E7D32);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .button:active {
+        background: linear-gradient(90deg, #004494, #007ba0);
+        transform: translateY(0);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    .button:focus {
+        outline: 2px solid #00D4FF;
+        outline-offset: 4px;
+    }
 
         @media (min-width: 768px) {
             .button {
@@ -144,10 +166,7 @@
     <div class="controls">
         <button onclick="generateNewTest()" class="button new-test-button">צור מבחן חדש</button>
         <select id="questionCount" class="answer-input">
-            <option value="5">5 שאלות</option>
             <option value="10" selected>10 שאלות</option>
-            <option value="15">15 שאלות</option>
-            <option value="20">20 שאלות</option>
         </select>
     </div>
 
@@ -292,8 +311,7 @@
                     text: "מהו השורש והגזרה של המילה 'מתווכחים'?",
                     answer: "וכח",
                     explanation: "שורש מגזרת נחי פ\"ו"
-                },
-                
+                }, 
                 {       
                     text: "מהו השורש והגזרה של המילה 'מתייאשים'?",
                     answer: "יאש",
@@ -350,20 +368,8 @@
                     explanation: "שורש מגזרת נל\"ה"
                 },
                 {
-                    text: "מהו השורש והגזרה של המילה 'נוהים'?",
-                    answer: "נהה",
-                    explanation: "שורש מגזרת נל\"ה"
-                },
-                
-           
-                {
                     text: "מהו השורש והגזרה של המילה 'מנסים'?",
                     answer: "נסה",
-                    explanation: "שורש מגזרת נל\"ה"
-                },
-                {
-                    text: "מהו השורש והגזרה של המילה 'מנהים'?",
-                    answer: "נהה",
                     explanation: "שורש מגזרת נל\"ה"
                 },
                 {
@@ -378,17 +384,9 @@
                 },
                 {
                     text: "מהו השורש והגזרה של המילה 'מתהווים'?",
-                    answer: "הוה",
-                    explanation: "שורש מגזרת נל\"ה"
-                },
-                
- 
-                {
-                    text: "מהו השורש והגזרה של המילה 'נודדים'?",
-                    answer: "נדד",
-                    explanation: "שורש מגזרת שלמים"
-                },
-                
+                    answer: "תוי",
+                    explanation: 'שורש מגזרת נפי/"ו'
+                }, 
                 {
                     text: "מהו השורש והגזרה של המילה 'לוקחים'?",
                     answer: "לקח",
@@ -434,11 +432,7 @@
                     answer: "נצר",
                     explanation: "שורש מגזרת חפ\"נ"
                 },
-                {
-                    text: "מהו השורש והגזרה של המילה 'לנדור'?",
-                    answer: "נדר",
-                    explanation: "שורש מגזרת חפ\"נ"
-                },
+                
                 {
                     text: "מהו השורש והגזרה של המילה 'נזילה'?",
                     answer: "נזל",
@@ -459,9 +453,239 @@
                     text: "מהו השורש והגזרה של המילה 'נוקמים'?",
                     answer: "נקם",
                     explanation: "שורש מגזרת חפ\"נ"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מוצעות'?",
+                    answer: "יצע",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'יכין'?",
+                    answer: "כון",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מסיקות'?",
+                    answer: "נסק",
+                    explanation: "שורש מגזרת חפ\"נ"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מורישה'?",
+                    answer: "ירש",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מעלימים'?",
+                    answer: "עלם",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'משאילים'?",
+                    answer: "שאל",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'נעות'?",
+                    answer: "נוע",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הזיזו'?",
+                    answer: "זוז",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הוגעה'?",
+                    answer: "נגע",
+                    explanation: "שורש מגזרת חפ\"נ"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מוחבאות'?",
+                    answer: "חבא",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מגשימות'?",
+                    answer: "גשם",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'שתול'?",
+                    answer: "שתל",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מותקפות'?",
+                    answer: "תקף",
+                    explanation: "שורש מגזרת שלמים"
+                },
+
+                {
+                    text: "מהו השורש והגזרה של המילה 'מכחיש'?",
+                    answer: "כחש",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                
+                {
+                    text: "מהו השורש והגזרה של המילה 'מכשילות'?",
+                    answer: "כשל",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מריצות'?",
+                    answer: "רוץ",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הובלת'?",
+                    answer: "יבל",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תיישרי'?",
+                    answer: "ישר",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הזדהתה'?",
+                    answer: "זהה",
+                    explanation: "שורש מגזרת כפולים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התיימרתי'?",
+                    answer: "ימר",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התערבתם'?",
+                    answer: "ערב",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התלבטו'?",
+                    answer: "לבט",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתריסים'?",
+                    answer: "תרס",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מפיצות'?",
+                    answer: "פוץ",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'העזתי'?",
+                    answer: "עוז",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'השחיתה'?",
+                    answer: "שחת",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תצטנעו'?",
+                    answer: "צנע",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תצביעי'?",
+                    answer: "צבע",
+                    explanation: "שורש מגזרת נפ\"ה"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתחממת'?",
+                    answer: "חמם",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתעורר'?",
+                    answer: "עור",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התקדמתן'?",
+                    answer: "קדם",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התכוונו'?",
+                    answer: "כונ",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתעקשות'?",
+                    answer: "עקש",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התאוששנו'?",
+                    answer: "אשש",
+                    explanation: "שורש מגזרת כפולים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תתפארו'?",
+                    answer: "פאר",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הפצצתן'?",
+                    answer: "פצצ",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מפנות'?",
+                    answer: "פנה",
+                    explanation: "שורש מגזרת חפ\"נ"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תפילו'?",
+                    answer: "נפל",
+                    explanation: "שורש מגזרת חפ\"נ"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תרגישו'?",
+                    answer: "רגש",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'הרטבנו'?",
+                    answer: "רטב",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תרשיעי'?",
+                    answer: "רשע",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'מתגאה'?",
+                    answer: "גאה",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'התייאשו'?",
+                    answer: "יאש",
+                    explanation: "שורש מגזרת נפי\"ו"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'השבתם'?",
+                    answer: "שוב",
+                    explanation: "שורש מגזרת נעו\"י"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'תשמידו'?",
+                    answer: "שמד",
+                    explanation: "שורש מגזרת שלמים"
+                },
+                {
+                    text: "מהו השורש והגזרה של המילה 'משתנים'?",
+                    answer: "שנה",
+                    explanation: "שורש מגזרת שלמים"
                 }
-
-
             ],
             patterns: [
                 {
@@ -524,7 +748,9 @@
         function getRandomQuestions(type, count) {
             const shuffled = shuffleArray([...questionBank[type]]);
             return shuffled.slice(0, count);
+
         }
+        const backToTopButton = document.getElementById('backToTopButton');
 
         function createQuestion(question, index, type) {
             return `
